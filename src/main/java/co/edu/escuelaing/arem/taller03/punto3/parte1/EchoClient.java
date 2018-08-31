@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.escuelaing.arem.taller03.punto3;
+package co.edu.escuelaing.arem.taller03.punto3.parte1;
 
 
 import java.io.*;
@@ -19,7 +19,7 @@ public class EchoClient {
         BufferedReader in = null;
 
         try {
-
+            
             echoSocket = new Socket("127.0.0.1", 35000);
             out = new PrintWriter(echoSocket.getOutputStream(), true);
 
@@ -43,7 +43,7 @@ public class EchoClient {
         String userInput;
 
         while ((userInput = stdIn.readLine()) != null) {
-
+            
             out.println(userInput);
             System.out.println("Answer : " + in.readLine());
 

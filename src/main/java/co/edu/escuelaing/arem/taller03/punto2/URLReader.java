@@ -17,7 +17,7 @@ public class URLReader {
     
     public static void main(String[] args) throws Exception {
 
-        String indexPath = "index.html";
+        String indexPath = "resultado.html";
         URLMaker urlMkr = new URLMaker();
         URL myURL = urlMkr.ReadURL();
         urlMkr.WriteURL(myURL,indexPath);

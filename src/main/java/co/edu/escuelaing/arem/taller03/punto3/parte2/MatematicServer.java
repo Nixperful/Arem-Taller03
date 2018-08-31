@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.escuelaing.arem.taller03.punto3;
+package co.edu.escuelaing.arem.taller03.punto3.parte2;
 
+import co.edu.escuelaing.arem.taller03.punto3.parte1.*;
 import java.net.*;
 import java.io.*;
 /**
  *
  * @author estudiante
  */
-public class MultiplyServer {
+public class MatematicServer {
 
     public static void main(String[] args) throws IOException {
         
@@ -25,17 +26,13 @@ public class MultiplyServer {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
                         clientSocket.getInputStream()));
-
         String inputLine;
         Float outputLine;
 
         while ((inputLine = in.readLine()) != null) {
-            System.out.println(
-            "Número Introducido:  " + inputLine
-            );
-            
+            System.out.println("Número Introducido:  " + inputLine);
             DataProcessor dP = new DataProcessor();
-            Float ans =  dP.square(Float.parseFloat(inputLine));
+            Float ans =  dP.cos(Float.parseFloat(inputLine));
             outputLine = ans;
             out.println(outputLine);
 
