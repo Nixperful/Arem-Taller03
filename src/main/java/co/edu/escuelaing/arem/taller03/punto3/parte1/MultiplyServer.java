@@ -27,28 +27,36 @@ public class MultiplyServer {
                         clientSocket.getInputStream()));
         String inputLine;
         Float outputLine;
+        boolean isFinished=true;    
+        while(isFinished){
+            try{
+                while ((inputLine = in.readLine()) != null) {
+                    System.out.println(
+                    "Número Introducido:  " + inputLine
+                    );
+                    if (inputLine.equals("bye")) {
+                        isFinished=false;
+                        break;
+                    }
+                    DataProcessor dP = new DataProcessor();
+                    Float ans =  dP.square(Float.parseFloat(inputLine));
+                    outputLine = ans;
+                    out.println(outputLine);
 
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println(
-            "Número Introducido:  " + inputLine
-            );
-            
-            DataProcessor dP = new DataProcessor();
-            Float ans =  dP.square(Float.parseFloat(inputLine));
-            outputLine = ans;
-            out.println(outputLine);
-
-            if (outputLine.equals("Respuestas: Bye.")) {
-                break;
+                    
+                }
+            }catch(Exception e){
+                   //isFinished=false;
             }
-
         }
-        out.close();
+            out.close();
 
-        in.close();
-        clientSocket.close();
+            in.close();
+            clientSocket.close();
 
-        serverSocket.close();
+            serverSocket.close();
+            
+        
     }
 
 }

@@ -26,6 +26,7 @@ public class EchoClient {
 
             in = new BufferedReader(new InputStreamReader(
                     echoSocket.getInputStream()));
+            System.out.println("Servidor Listo: \n Ingrese el número u operación:");
 
         } catch (UnknownHostException e) {
             System.err.println("Don’t know about host!.");
@@ -42,14 +43,13 @@ public class EchoClient {
         BufferedReader stdIn = new BufferedReader(
                 new InputStreamReader(System.in));
         String userInput;
-
+        
         while ((userInput = stdIn.readLine()) != null) {
-            
+            System.out.println("Introduce número:");
             out.println(userInput);
-            System.out.println("Answer : " + in.readLine());
+            System.out.println("Respuesta : " + in.readLine());
 
         }
-
         out.close();
         in.close();
 

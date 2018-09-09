@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 package co.edu.escuelaing.arem.taller03.punto3.parte2;
-
-import co.edu.escuelaing.arem.taller03.punto3.parte1.*;
 import java.net.*;
 import java.io.*;
+
 /**
  *
  * @author estudiante
  */
+
+
 public class MatematicServer {
 
     public static void main(String[] args) throws IOException {
@@ -28,16 +29,29 @@ public class MatematicServer {
                         clientSocket.getInputStream()));
         String inputLine;
         Float outputLine;
+        boolean isFinished=true;    
+        while(isFinished){
+            try{
+                DataProcessor dP = new DataProcessor();
+                while ((inputLine = in.readLine()) != null) {
+                    System.out.println(
+                    "Número Introducido:  " + inputLine
+                    );
 
-        while ((inputLine = in.readLine()) != null) {
-            System.out.println("Número Introducido:  " + inputLine);
-            DataProcessor dP = new DataProcessor();
-            Float ans =  dP.cos(Float.parseFloat(inputLine));
-            outputLine = ans;
-            out.println(outputLine);
+                    
+                    if (inputLine.equals("bye")) {
+                        isFinished=false;
+                        break;
+                    }
+                    
+                    dP.calculateOperation(inputLine);
+                    outputLine =dP.getLastAns();
+                    out.println(outputLine+"   Operación: "+dP.getActualOperation());
 
-            if (outputLine.equals("Respuestas: Bye.")) {
-                break;
+                    
+                }
+            }catch(Exception e){
+                   //isFinished=false;
             }
 
         }
