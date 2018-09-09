@@ -9,11 +9,16 @@ package co.edu.escuelaing.arem.taller03.punto6;
  *
  * @author Nicolás
  */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EchoServerImpl implements EchoServer {
     public boolean nMessage = false;
@@ -23,6 +28,7 @@ public class EchoServerImpl implements EchoServer {
             System.setSecurityManager(new SecurityManager());
         }
 
+        
         try {
             EchoServer echoServer= (EchoServer) UnicastRemoteObject.exportObject(this, 0);
             Registry registry = LocateRegistry.getRegistry(ipRMIregistry, puertoRMIregistry);
@@ -37,12 +43,15 @@ public class EchoServerImpl implements EchoServer {
         }
 
     }
-
-    public String echo(String cadena) throws RemoteException {        
-        
-        nMessage = true;
-        last = cadena;      
-        return "Send : " + last;
+    @Override
+    public String echo(String text) throws RemoteException {        
+        String nMessage="";
+        try {
+            nMessage = (new BufferedReader(new InputStreamReader(System.in))).readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(EchoServerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nMessage;
 }
 
     public static void main(String[] args) {
@@ -50,14 +59,4 @@ public class EchoServerImpl implements EchoServer {
 
     }
 
-    @Override
-    public String getLMessage() throws RemoteException{
-        System.out.println("GETEOOOOOOO");
-        nMessage = false;
-        return "Send : " + last;
-    }
-    @Override
-    public boolean getNMessage() throws RemoteException{
-        return nMessage;
-}
 }

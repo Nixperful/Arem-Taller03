@@ -8,8 +8,11 @@ package co.edu.escuelaing.arem.taller03.punto6;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,14 +32,18 @@ public class EchoClient {
 
             Registry registry = LocateRegistry.getRegistry(ipRmiregistry, puertoRmiRegistry);
             EchoServer echoServer = (EchoServer) registry.lookup(nombreServicio);
-
-            System.out.println(echoServer.echo("Hola como estas?"));
-            
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            String userInput;
+            while ((userInput = stdIn.readLine()) != null) {
+                System.out.println(echoServer.echo(userInput));
+                if (userInput.equals("")) {
+                    break;
+                }
+            }
         } catch (Exception e) {
 
             System.err.println("Hay un problema:");
             e.printStackTrace();
-
         }
     }
 
